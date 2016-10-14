@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-exports.model = function(question, session, env) {
+exports.model = function (question, session, env) {
 
   console.debug('[state] question:', JSON.stringify(question, null, '  '));
   console.debug('[state] session:', JSON.stringify(session, null, '  '));
@@ -17,7 +17,7 @@ exports.model = function(question, session, env) {
   }
 
   if (env.mode === 'evaluate') {
-    base.outcomes = _.map(session.value, function(c, idx) {
+    base.outcomes = _.map(session.value, function (c, idx) {
       return {
         id: c,
         outcome: question.correctResponse[idx] === c ? 'correct' : 'incorrect'
@@ -37,10 +37,10 @@ exports.model = function(question, session, env) {
     black_on_white: 'default'
   };
 
-  if (env.accessibility && env.accessibility.colorContrast && map[env.accessibility.colorContrast]){
+  if (env.accessibility && env.accessibility.colorContrast && map[env.accessibility.colorContrast]) {
     base.className = map[env.accessibility.colorContrast];
   }
 
   console.debug('[state] return: ' + JSON.stringify(base, null, '  '));
-  return base;
+  return Promise.resolve(base);
 };
