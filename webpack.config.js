@@ -20,15 +20,15 @@ var config = {
     'react/lib/ReactTransitionGroup': 'React.addons.TransitionGroup',
     'react/lib/ReactCSSTransitionGroup': 'React.addons.CSSTransitionGroup'
   } : {},
-  module : {
-    loaders : [
+  module: {
+    loaders: [
       {
         test: /\.jsx$/,
         exclude: /node_modules/,
         loader: "babel",
         include: APP_DIR,
         query: {
-          presets: isProd ? [ 'es2016', 'react'] : [ 'es2015', 'react', 'react-hmre' ],
+          presets: ['react', 'react-hmre'],
           plugins: ["syntax-decorators"]
         }
       },
