@@ -28,7 +28,7 @@ export default class CorespringOrdering extends HTMLElement {
     this.render();
   }
 
-  connectededCallback() {
+  connectedCallback() {
     this.dispatchEvent(new CustomEvent('pie.register', { bubbles: true }));
   }
 }
