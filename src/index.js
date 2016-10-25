@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Main from './tmp.ordering.jsx';
+import Main from './corespring-ordering.jsx';
 
 var style = require('!style!css!less!./index.less');
 

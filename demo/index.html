@@ -3,6 +3,11 @@
   <head>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script type="text/javascript" src="bundle.js"></script>
+    <style>
+    .sortable-chosen{
+      cursor: pointer;
+    }
+    </style>
     <script type="text/javascript">
 
 
@@ -50,36 +55,54 @@
       }
     }); 
 
-    function handler(name){
-      return () => {
-        window.env = {mode: name};
-        controller.model(fullModel, window.session, window.env)
-          .then((result) => {
-            comp.model = result;
-          });
-      }
+    function handler(event){
+      window.env = _.merge(window.env, {mode: event.target.getAttribute('id')});
+      updateUI();
     }
 
-    document.addEventListener('DOMContentLoaded', function(){
-      document.querySelector('#gather').addEventListener('click', handler('gather'));
-      document.querySelector('#view').addEventListener('click', handler('view'));
-      document.querySelector('#evaluate').addEventListener('click', handler('evaluate'));
+    function colorChange(event){
+      var color = event.target.getAttribute('id');
+      window.env.accessibility = window.env.accessibility || {};
+      window.env.accessibility.colorContrast = color;
+      updateUI();
+    }
+
+    function updateUI(){
       controller.model(fullModel, window.session, window.env)
         .then((result) => {
-
+          comp.model = result;
+        });
+    }
+    
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelector('#gather').addEventListener('click', handler);
+      document.querySelector('#view').addEventListener('click', handler);
+      document.querySelector('#evaluate').addEventListener('click', handler);
+      
+      controller.model(fullModel, window.session, window.env)
+        .then((result) => {
           if(comp){
             comp.model = result;
           } else {
             preppedModel = result;
           }
         });
+
+        document.querySelector('#black_on_white').addEventListener('click',colorChange);
+        document.querySelector('#white_on_black').addEventListener('click',colorChange);
+        document.querySelector('#black_on_rose').addEventListener('click',colorChange);
     });
+
     </script>
   </head>
   <body>
     <button id="gather">Gather</button>
     <button id="view">View</button>
     <button id="evaluate">Evaluate</button>
+    <br/>
+    <button id="black_on_white">b/w</button>
+    <button id="white_on_black">w/b</button>
+    <button id="black_on_rose">b/r</button>
     <corespring-ordering-react></corespring-ordering-react>
   </body>
 </html>
