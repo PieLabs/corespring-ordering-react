@@ -1,0 +1,172 @@
+.corespring-ordering {
+
+  font-family: 'Roboto', san-serif;
+
+  * {
+     font-family: 'Roboto', san-serif;
+  }
+
+  .choice-list{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+  .choice-list-item{
+    font-family: 'Roboto', san-serif;
+    margin: 4px;
+    padding: 0;
+    flex: 1 1 auto;
+    cursor: pointer;
+    box-shadow: 2px 2px 3px 0 rgba(0,0,0,0.18);
+    
+    .choice{
+      &:hover{
+        background-color: #999999;
+      }
+      padding: 6px;
+      text-align: center;
+    }
+    .choice.disabled{
+      &:hover{
+        background-color: white;
+      }
+    }
+  }
+
+// .corespring-ordering {
+
+//   * {
+//      font-family: 'Roboto',san-serif;
+//   }
+
+//   &.view {
+//     .choice {
+//       border: red;
+//     }
+//   }
+//   .choice-list-item {
+//     list-style: none;
+//   }
+
+//   .choice {
+//     cursor: pointer;
+//     padding: 10px;
+//     display: inline-block;
+//     box-shadow: 2px 2px 3px 0 rgba(0,0,0,0.18);
+//     background: #fff;
+//     border: 1px solid #f1f1f4;
+//     text-align: center;
+
+//     &.correct {
+//       border: 2px solid green;
+//     }
+
+//     &.incorrect {
+//       border: 2px solid orange;
+//     }
+//   }
+//   .choice-list {
+//     text-align: center;
+//     padding: 20px;
+//     background-color: #fff;
+//     margin: 0;
+
+//     & > * {
+//       padding: 10px;
+//       margin-bottom: 10px;
+//     }
+//   }
+//   .choices-container {
+//     position: relative;
+
+//     .place-holder-choices {
+//       opacity: 0;
+//       pointer-events: none;
+//     }
+//     .choices-wrapper {
+//       position: absolute;
+//       top: 0;
+//       left: 0;
+//       right: 0;
+//       bottom: 0;
+//     }
+//   }
+//   .choice-holder-transition-enter {
+//     opacity: 0.01;
+//   }
+
+//   .choice-holder-transition-enter.choice-holder-transition-enter-active {
+//     opacity: 1;
+//     transition: opacity 300ms ease-in;
+//   }
+
+//   .choice-holder-transition-leave {
+//     opacity: 1;
+//   }
+
+//   .choice-holder-transition-leave.choice-holder-transition-leave-active {
+//     opacity: 0.01;
+//     transition: opacity 300ms ease-in;
+//   }
+
+// }
+
+// .corespring-correct-answer-toggle {
+//   display: block;
+//   height: 25px;
+//   width: 200px;
+//   position: relative;
+//   cursor: pointer;
+//   margin: 0 auto 0 auto;
+//   -webkit-touch-callout: none; /* iOS Safari */
+//   -webkit-user-select: none;   /* Chrome/Safari/Opera */
+//   -khtml-user-select: none;    /* Konqueror */
+//   -moz-user-select: none;      /* Firefox */
+//   -ms-user-select: none;       /* Internet Explorer/Edge */
+//   user-select: none;           /* Non-prefixed version, currently
+//                               not supported by any browser */
+
+//   svg {
+//     width: 25px;
+//     float: left;
+//   }
+
+//   .corespring-correct-answer-toggle-label {
+//     position: absolute;
+//     left: 30px;
+//     height: 25px;
+//     line-height: 28px;
+//     vertical-align: middle;
+//     color: #1a9cff;
+//     font-family: sans-serif;
+//   }
+
+//   .show-icon-background {
+//     fill: white;
+//   }
+
+//   .hide-icon-background {
+//     fill: #bce2ff;
+//   }
+
+//   .show-icon-border {
+//     fill: #bce2ff;
+//   }
+
+//   .show-icon-foreground, .hide-icon-foreground {
+//     fill: #1a9cff;
+//   }
+
+//   .root{
+//     position: relative;
+//   }
+
+//   .svg-holder {
+//     position: absolute;
+//   }
+
+//   .svg-holder > svg {
+//     position: absolute;
+//   }
+// }
