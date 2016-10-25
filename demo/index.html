@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script type="text/javascript" src="bundle.js"></script>
+    <style>
+    .sortable-chosen{
+      cursor: pointer;
+    }
+    </style>
+    <script type="text/javascript">
+
+
+      var fullModel = {
+      "correctResponse": [
+        "c2",
+        "c3",
+        "c1",
+        "c4"
+      ],
+      "model": {
+        "prompt": "Hello Ordering",
+        "choices": [
+          {
+            "id": "c1",
+            "label": "Apple"
+          },
+          {
+            "id": "c2",
+            "label": "Pear"
+          },
+          {
+            "id": "c3",
+            "label": "Orange"
+          },
+          {
+            "id": "c4",
+            "label": "Banana"
+          }
+        ]
+      }
+    };
+      
+
+    window.session = {};
+    window.env = {mode: 'gather'};
+    var comp, preppedModel; 
+
+    document.addEventListener('pie.register', function(event){
+      console.log('register: ', event.target);
+      comp = event.target;
+      comp.session = window.session;
+      if(preppedModel){
+        comp.model = preppedModel;
+      }
+    }); 
+
+    function handler(event){
+      window.env = _.merge(window.env, {mode: event.target.getAttribute('id')});
+      updateUI();
+    }
+
+    function colorChange(event){
+      var color = event.target.getAttribute('id');
+      window.env.accessibility = window.env.accessibility || {};
+      window.env.accessibility.colorContrast = color;
+      updateUI();
+    }
+
+    function updateUI(){
+      controller.model(fullModel, window.session, window.env)
+        .then((result) => {
+          comp.model = result;
+        });
+    }
+    
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelector('#gather').addEventListener('click', handler);
+      document.querySelector('#view').addEventListener('click', handler);
+      document.querySelector('#evaluate').addEventListener('click', handler);
+      
+      controller.model(fullModel, window.session, window.env)
+        .then((result) => {
+          if(comp){
+            comp.model = result;
+          } else {
+            preppedModel = result;
+          }
+        });
+
+        document.querySelector('#black_on_white').addEventListener('click',colorChange);
+        document.querySelector('#white_on_black').addEventListener('click',colorChange);
+        document.querySelector('#black_on_rose').addEventListener('click',colorChange);
+    });
+
+    </script>
+  </head>
+  <body>
+    <button id="gather">Gather</button>
+    <button id="view">View</button>
+    <button id="evaluate">Evaluate</button>
+    <br/>
+    <button id="black_on_white">b/w</button>
+    <button id="white_on_black">w/b</button>
+    <button id="black_on_rose">b/r</button>
+    <corespring-ordering-react></corespring-ordering-react>
+  </body>
+</html>

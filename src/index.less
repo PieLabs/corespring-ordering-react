@@ -1,6 +1,38 @@
 
+.noselect() {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently not supported by any browser */
+}
+
+.corespring-ordering.black-on-rose {
+  background-color: mistyrose;
+  .choice{
+    background-color: mistyrose;
+  }
+}
+
+.corespring-ordering.white-on-black {
+  background-color: black;
+  .choice{
+    background-color: black;
+    color: white;
+  }
+}
+
 
 .corespring-ordering {
+
+
+ font-family: 'Roboto', san-serif;
+
+  * {
+     font-family: 'Roboto', san-serif;
+  }
+
   &.view {
     .choice {
       border: red;
@@ -9,30 +41,38 @@
   .choice-list-item {
     list-style: none;
   }
+ 
+  .choice.disabled{
+    color: #888888;
+    border: 1px solid #cccccc;
+    cursor: default;
+  }
+
   .choice {
+    .noselect();
+    cursor: pointer;
     padding: 10px;
-    display: inline-block;
     box-shadow: 2px 2px 3px 0 rgba(0,0,0,0.18);
     background: #fff;
-    border: 1px solid #f1f1f4;
+    border: 1px solid #aaaaaa;
     text-align: center;
 
     &.correct {
-      border: 2px solid green;
+      cursor: auto;
+      border: 1px solid green;
     }
 
     &.incorrect {
-      border: 2px solid orange;
+      cursor: auto;
+      border: 1px solid orange;
     }
   }
   .choice-list {
     text-align: center;
-    padding: 20px;
-    background-color: #fff;
+    padding: 10px;
     margin: 0;
 
     & > * {
-      padding: 10px;
       margin-bottom: 10px;
     }
   }
