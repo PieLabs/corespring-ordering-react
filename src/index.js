@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Main from './main.jsx';
+import Main from './tmp.ordering.jsx';
+
+var style = require('!style!css!less!./index.less');
 
 export default class CorespringOrdering extends HTMLElement {
   constructor() {

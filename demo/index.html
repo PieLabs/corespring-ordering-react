@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script type="text/javascript" src="bundle.js"></script>
+    <script type="text/javascript">
+
+
+      var fullModel = {
+      "correctResponse": [
+        "c2",
+        "c3",
+        "c1",
+        "c4"
+      ],
+      "model": {
+        "prompt": "Hello Ordering",
+        "choices": [
+          {
+            "id": "c1",
+            "label": "Apple"
+          },
+          {
+            "id": "c2",
+            "label": "Pear"
+          },
+          {
+            "id": "c3",
+            "label": "Orange"
+          },
+          {
+            "id": "c4",
+            "label": "Banana"
+          }
+        ]
+      }
+    };
+      
+
+    window.session = {};
+    window.env = {mode: 'gather'};
+    var comp, preppedModel; 
+
+    document.addEventListener('pie.register', function(event){
+      console.log('register: ', event.target);
+      comp = event.target;
+      comp.session = window.session;
+      if(preppedModel){
+        comp.model = preppedModel;
+      }
+    }); 
+
+    function handler(name){
+      return () => {
+        window.env = {mode: name};
+        controller.model(fullModel, window.session, window.env)
+          .then((result) => {
+            comp.model = result;
+          });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelector('#gather').addEventListener('click', handler('gather'));
+      document.querySelector('#view').addEventListener('click', handler('view'));
+      document.querySelector('#evaluate').addEventListener('click', handler('evaluate'));
+      controller.model(fullModel, window.session, window.env)
+        .then((result) => {
+
+          if(comp){
+            comp.model = result;
+          } else {
+            preppedModel = result;
+          }
+        });
+    });
+    </script>
+  </head>
+  <body>
+    <button id="gather">Gather</button>
+    <button id="view">View</button>
+    <button id="evaluate">Evaluate</button>
+    <corespring-ordering-react></corespring-ordering-react>
+  </body>
+</html>

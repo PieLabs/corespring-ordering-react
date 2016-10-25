@@ -3,6 +3,7 @@ import _ from 'lodash';
 import Sortable from 'react-sortablejs';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import CorespringShowCorrectAnswerToggle from 'corespring-show-correct-answer-toggle-react'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class ToggleCorrect extends React.Component {
   constructor(props) {
@@ -21,6 +22,8 @@ class ToggleCorrect extends React.Component {
     return <div onClick={this.onClick.bind(this)}>{{true: 'Hide', false: 'Show'}[this.state.isOn]} Correct {this.state.isOn.toString()}</div>
   }
 }
+
+
 class CorespringOrdering extends React.Component {
 
   constructor(props) {
@@ -45,7 +48,7 @@ class CorespringOrdering extends React.Component {
         let choice = _.find(this.props.model.choices, (c) => { return c.id === val });
         let outcome = this.state.showingCorrect ? {outcome: 'correct'} : _.find(this.props.model.outcomes, (c) => { return c.id === val });
         let choiceClass = 'choice ' + (outcome || {}).outcome;
-        return <li className="choice-list-item" key={key} data-id={val}><div className={choiceClass}>{choice.label}</div></li>;
+        return <div className="choice-list-item" key={key} data-id={val}><div className={choiceClass}>{choice.label}</div></div>;
       }
     );
 
@@ -58,7 +61,7 @@ class CorespringOrdering extends React.Component {
           disabled: this.props.model.disabled
         }}
         className="choice-list"
-        tag="ul"
+        tag="div"
         onChange={(order, sortable, evt) => {
           this.setState({order: order});
           this.props.session.value = order;
@@ -76,7 +79,7 @@ class CorespringOrdering extends React.Component {
           disabled: this.props.model.disabled
         }}
         className="choice-list"
-        tag="ul"
+        tag="div"
         onChange={(order, sortable, evt) => {
           this.setState({order: order});
           this.props.session.value = order;
@@ -87,22 +90,24 @@ class CorespringOrdering extends React.Component {
     </div> : '';
 
     return (
-      <div className={className}>Ordering
-        {toggler}
-        <div className="choices-container">
-          {myAnswer('place-holder-choices')}
+      <MuiThemeProvider>
+        <div className={className}>
+          {toggler}
+          <div className="choices-container">
+            {myAnswer('place-holder-choices')}
 
-          <ReactCSSTransitionGroup
-            transitionName="choice-holder-transition"
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={300}>
+            <ReactCSSTransitionGroup
+              transitionName="choice-holder-transition"
+              transitionEnterTimeout={300}
+              transitionLeaveTimeout={300}>
 
-            {maybeMyAnswer}
-            {correctAnswer}
+              {maybeMyAnswer}
+              {correctAnswer}
 
-          </ReactCSSTransitionGroup>
+            </ReactCSSTransitionGroup>
+          </div>
         </div>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
