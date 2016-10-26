@@ -127,7 +127,7 @@ class CorespringOrdering extends React.Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className={className}>
           {toggler}
-          <label className="prompt">{this.props.model.prompt}</label>
+          <div className="prompt">{this.props.model.prompt}</div>
           <div className="choices-container">
             {myAnswer('place-holder-choices')}
 
