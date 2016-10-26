@@ -4,6 +4,9 @@ import Sortable from 'react-sortablejs';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import CorespringShowCorrectAnswerToggle from 'corespring-show-correct-answer-toggle-react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { green200, green500, amber300, amber500, amber600 } from 'material-ui/styles/colors';
 
 class ToggleCorrect extends React.Component {
   constructor(props) {
@@ -26,6 +29,7 @@ class ToggleCorrect extends React.Component {
 
 class CorespringOrdering extends React.Component {
 
+
   constructor(props) {
     super(props);
     console.log('p', props);
@@ -35,12 +39,36 @@ class CorespringOrdering extends React.Component {
     };
   }
 
+  _getMuiTheme(className) {
+    if (className === 'white-on-black') {
+      return getMuiTheme(darkBaseTheme, {
+        correctColor: green200,
+        incorrectColor: amber500,
+        palette: {
+          textColor: 'white'
+        }
+      });
+    } else if (className === 'black-on-rose') {
+      return getMuiTheme({
+        correctColor: green500,
+        incorrectColor: amber600
+      });
+    } else {
+      return getMuiTheme({
+        correctColor: green500,
+        incorrectColor: amber600
+      });
+    }
+  };
+
   toggleCorrect(val) {
     this.setState({showingCorrect: val});
   }
 
   //TODO: can we set the drag cursor? https://github.com/RubaXa/Sortable/issues/246
   render() {
+
+    const muiTheme = this._getMuiTheme(this.props.model.className);
 
     const order = this.state.showingCorrect ? this.props.model.correctResponse : this.state.order;
     
@@ -56,7 +84,10 @@ class CorespringOrdering extends React.Component {
       }
     );
 
-    const toggler = this.props.model.correctResponse ? <CorespringShowCorrectAnswerToggle initialValue={false} onToggle={this.toggleCorrect.bind(this)}/> : null;
+    const toggler = this.props.model.correctResponse ? <CorespringShowCorrectAnswerToggle 
+      initialValue={this.state.showingCorrect} 
+      onToggle={this.toggleCorrect.bind(this)}/> : null;
+
     let className =  "corespring-ordering " //+ this.props.model.env.mode;
     className += this.props.model.className || '';
     
@@ -93,7 +124,7 @@ class CorespringOrdering extends React.Component {
     </div> : '';
 
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={muiTheme}>
         <div className={className}>
           {toggler}
           <div className="choices-container">
